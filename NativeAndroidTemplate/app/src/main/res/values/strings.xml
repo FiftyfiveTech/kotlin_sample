@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Native Template</string>
+    <string name="light_theme_text">☀️ </string>
+    <string name="dark_theme_text">🌘 </string>
+    <string name="error_screen">Error</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="loading">Loading..</string>
+    <string name="title_activity_photo_detail_screen">PhotoDetailScreen</string>
+</resources>
