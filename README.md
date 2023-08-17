@@ -7,7 +7,7 @@ This app contains :
 *   A single-activity architecture, using **[Navigation Compose](https://developer.android.com/jetpack/compose/navigation)**.
 *   A presentation layer that contains a Compose screen (View) and a **ViewModel** per screen (or feature).
 *   Reactive UIs using **[Flow](https://developer.android.com/kotlin/flow)** and **[coroutines](https://kotlinlang.org/docs/coroutines-overview.html)** for asynchronous operations.
-*   A **data layer** with a repository and two data sources (local using Room and a fake remote).
+*   A **data layer** with a repository and two data sources (local using Room and remote).
 *   Dependency injection using [Hilt](https://developer.android.com/training/dependency-injection/hilt-android).
 
 
