@@ -30,7 +30,7 @@ fun ScreenContent(navController: NavHostController) {
     /**
      *  Method that is responsible for changing the theme
      */
-//    AppThemeSetter(isDarkTheme = isDarkTheme) {
+    AppThemeSetter(isDarkTheme = isDarkTheme) {
 
         Column {
             TopAppBar(
@@ -69,5 +69,5 @@ fun ScreenContent(navController: NavHostController) {
 
             SetNavGraph(navController = navController)
         }
-//    }
+    }
 }
