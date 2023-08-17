@@ -21,10 +21,8 @@ import com.fiftyfive.nativeandroidtemplate.presentation.viewmodels.PhotoDetailVi
 import com.fiftyfive.nativeandroidtemplate.presentation.viewstates.PhotoDetailViewState
 
 @Composable
-fun DetailScreen(
-    id: String
+fun DetailScreen(photoDetailViewModel: PhotoDetailViewModel
 ){
-    val photoDetailViewModel: PhotoDetailViewModel = hiltViewModel()
     val collectAsState = photoDetailViewModel.photoDetailState.collectAsState()
     when(val result = collectAsState.value){
         is PhotoDetailViewState.Loading ->{
@@ -35,8 +33,6 @@ fun DetailScreen(
         }
         else -> {}
     }
-
-    photoDetailViewModel.fetchDetail(id)
 }
 
 @Composable
