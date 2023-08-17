@@ -41,6 +41,9 @@ import com.fiftyfive.nativeandroidtemplate.presentation.viewmodels.PhotoListView
 import com.fiftyfive.nativeandroidtemplate.presentation.viewstates.PhotoListViewState
 import kotlinx.coroutines.launch
 
+/**
+ *  Lists all photos
+ */
 @Composable
 fun HomeScreen(navController: NavHostController) {
 

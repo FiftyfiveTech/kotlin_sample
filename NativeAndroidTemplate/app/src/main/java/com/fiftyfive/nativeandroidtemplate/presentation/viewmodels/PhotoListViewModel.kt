@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fiftyfive.nativeandroidtemplate.business.PhotoLocalRepository
 import com.fiftyfive.nativeandroidtemplate.business.PhotoRepository
+import com.fiftyfive.nativeandroidtemplate.di.HiltModules
 import com.fiftyfive.nativeandroidtemplate.presentation.viewstates.PhotoListViewState
 import com.fiftyfive.nativeandroidtemplate.presentation.viewstates.updateFavorite
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,8 +20,10 @@ import javax.inject.Inject
  *  @param dbRepository instance of PhotoLocalRepository interface from domain layer
  */
 @HiltViewModel
-class PhotoListViewModel @Inject constructor(private val repository: PhotoRepository,
-    private val dbRepository: PhotoLocalRepository) : ViewModel() {
+class PhotoListViewModel @OptIn(ExperimentalCoroutinesApi::class)
+@Inject constructor(private val repository: PhotoRepository,
+                    private val dbRepository: PhotoLocalRepository,
+                    @HiltModules.IsNetworkAvailable val isConnected: Boolean) : ViewModel() {
 
     val photoListState : MutableStateFlow<PhotoListViewState> = MutableStateFlow(PhotoListViewState.Loading)
 
@@ -38,13 +41,22 @@ class PhotoListViewModel @Inject constructor(private val repository: PhotoReposi
         viewModelScope.launch(Dispatchers.IO) {
             photoListState.value = PhotoListViewState.Loading
 
-            val photoList = repository.getPhotos()
-            if (photoList.isNotEmpty()) {
-                dbRepository.addPhotosToDatabase(photoList)
-                photoListState.value = PhotoListViewState.Success(dbRepository.getPhotoListFromDatabase())
+            if (isConnected) {
+                val photoList = repository.getPhotos()
+                if (photoList.isNotEmpty()) {
+                    dbRepository.addPhotosToDatabase(photoList)
+                    photoListState.value = PhotoListViewState.Success(dbRepository.getPhotoListFromDatabase())
+                }
+                else
+                    photoListState.value = PhotoListViewState.Error
             }
-            else
-                photoListState.value = PhotoListViewState.Error
+            else{
+                val photos = dbRepository.getPhotoListFromDatabase()
+                if (photos.isEmpty())
+                    photoListState.value = PhotoListViewState.Error
+                else
+                    photoListState.value = PhotoListViewState.Success(photos)
+            }
         }
 
     }
