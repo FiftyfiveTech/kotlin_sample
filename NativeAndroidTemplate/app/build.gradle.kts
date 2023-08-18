@@ -64,6 +64,7 @@ dependencies {
     implementation("androidx.room:room-common:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.appcompat:appcompat:1.6.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     val room_version = "2.5.2"
 

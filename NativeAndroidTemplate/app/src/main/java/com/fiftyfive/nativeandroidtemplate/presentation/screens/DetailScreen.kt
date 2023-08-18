@@ -11,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.fiftyfive.nativeandroidtemplate.R
 import com.fiftyfive.nativeandroidtemplate.business.Photo
 import com.fiftyfive.nativeandroidtemplate.presentation.common.CustomLayoutTextView
 import com.fiftyfive.nativeandroidtemplate.presentation.common.ErrorScreen
@@ -21,12 +22,11 @@ import com.fiftyfive.nativeandroidtemplate.presentation.viewmodels.PhotoDetailVi
 import com.fiftyfive.nativeandroidtemplate.presentation.viewstates.PhotoDetailViewState
 
 @Composable
-fun DetailScreen(photoDetailViewModel: PhotoDetailViewModel
-){
+fun DetailScreen(photoDetailViewModel: PhotoDetailViewModel){
     val collectAsState = photoDetailViewModel.photoDetailState.collectAsState()
     when(val result = collectAsState.value){
         is PhotoDetailViewState.Loading ->{
-            ErrorScreen(message = "Loading..")
+            ErrorScreen(message = stringResource(id = R.string.loading))
         }
         is PhotoDetailViewState.Success ->{
             DetailView(result.detail)
@@ -47,11 +47,17 @@ fun DetailView(photo: Photo) {
                 contentDescription = null
             )
             Column(modifier = Modifier.weight(1f)) {
-                CustomLayoutTextView(text1 = "Author", photo.author)
-                Spacer(modifier = Modifier.height(1.dp).fillMaxWidth().background(MaterialTheme.colorScheme.inversePrimary))
-                CustomLayoutTextView(text1 = "Width", photo.width.toString())
-                Spacer(modifier = Modifier.height(1.dp).fillMaxWidth().background(MaterialTheme.colorScheme.inversePrimary))
-                CustomLayoutTextView(text1 = "Height", photo.height.toString())
+                CustomLayoutTextView(text1 = stringResource(id = R.string.author), photo.author)
+                Spacer(modifier = Modifier
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.inversePrimary))
+                CustomLayoutTextView(text1 = stringResource(id = R.string.width), photo.width.toString())
+                Spacer(modifier = Modifier
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.inversePrimary))
+                CustomLayoutTextView(text1 = stringResource(id = R.string.height), photo.height.toString())
             }
         }
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Native Template</string>
+    <string name="error_screen">Erreur</string>
+    <string name="loading">Chargement..</string>
+    <string name="author">Auteur</string>
+    <string name="width">Largeur</string>
+    <string name="height">Hauteur</string>
+</resources>
